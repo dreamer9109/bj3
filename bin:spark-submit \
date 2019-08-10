@@ -1,0 +1,21 @@
+bin/spark-submit \
+--class org.apache.spark.examples.SparkPi \
+--master spark://node01:7077,node02:7077,node03:7077 \
+--executor-memory 1G \
+--total-executor-cores 2 \
+/export/servers/spark-2.0.2-bin-hadoop2.7/examples/jars/spark-examples_2.11-2.0.2.jar \
+100
+
+
+Unable to finalize edits file /export/servers/hadoop-2.7.5/hadoopDatas/nn/edits/current/edits_inprogress_0000000000000000005
+
+
+
+mkdir -p /export/servers/hadoop-2.7.5/hadoopDatas/tempDatas
+mkdir -p /export/servers/hadoop-2.7.5/hadoopDatas/namenodeDatas
+mkdir -p /export/servers/hadoop-2.7.5/hadoopDatas/namenodeDatas2
+mkdir -p /export/servers/hadoop-2.7.5/hadoopDatas/datanodeDatas
+mkdir -p /export/servers/hadoop-2.7.5/hadoopDatas/datanodeDatas2
+mkdir -p /export/servers/hadoop-2.7.5/hadoopDatas/nn/edits/current
+mkdir -p /export/servers/hadoop-2.7.5/hadoopDatas/snn/name
+mkdir -p /export/servers/hadoop-2.7.5/hadoopDatas/dfs/snn/edits
