@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+						  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+						  http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+						   http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
+						   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+
+
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="properties" ref="configProperties"/>
+    </bean>
+
+    <beans profile="dev">
+        <bean id="configProperties"
+              class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+            <property name="location" value="classpath:system-dev.properties"/>
+        </bean>
+    </beans>
+
+    <beans profile="test_2">
+        <bean id="configProperties"
+              class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+            <property name="location" value="classpath:system-test_2.properties"/>
+        </bean>
+    </beans>
+
+    <beans profile="test_5">
+        <bean id="configProperties"
+              class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+            <property name="location" value="classpath:system-test_5.properties"/>
+        </bean>
+    </beans>
+
+    <beans profile="test_9">
+        <bean id="configProperties"
+              class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+            <property name="location" value="classpath:system-test_9.properties"/>
+        </bean>
+    </beans>
+
+    <beans profile="test">
+        <bean id="configProperties"
+              class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+            <property name="location" value="classpath:system-test.properties"/>
+        </bean>
+    </beans>
+
+    <beans profile="predeploy">
+        <bean id="configProperties"
+              class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+            <property name="location" value="classpath:system-predeploy.properties"/>
+        </bean>
+    </beans>
+    <beans profile="online">
+        <bean id="configProperties"
+              class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+            <property name="location" value="classpath:system-online.properties"/>
+        </bean>
+    </beans>
+
+
+</beans>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laifeng.cpsjobs.dao.stat.cps.PackageTaskMapper">
+    <resultMap type="com.laifeng.cpsjobs.model.cps.PackageTask" id="packageTaskResultMap">
+        <result property="id" column="pk_cps_package_task_id" />
+        <result property="jobCode" column="job_code" />
+        <result property="createTime" column="create_time" />
+        <result property="taskStatus" column="task_status" />
+        <result property="status" column="status" />
+    </resultMap>
+
+    <select id="listPackageTask" resultMap="packageTaskResultMap">
+        SELECT * FROM t_cps_package_task
+		WHERE task_status = #{taskStatus}
+		LIMIT #{offsite},#{length}
+    </select>
+
+    <select id="lookLock" resultType="Integer">
+        SELECT pk_cps_package_task_id
+        FROM t_cps_package_task
+        WHERE pk_cps_package_task_id = #{id} AND task_status = 1
+    </select>
+
+    <select id="countPackageTask" resultType="Integer">
+        SELECT count(*) FROM t_cps_package_task
+        WHERE task_status = #{taskStatus}
+    </select>
+
+    <insert id="insertPackageTask" parameterType="com.laifeng.cpsjobs.model.cps.PackageTask" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_cps_package_task
+        SET job_code = #{jobCode},create_time = #{createTime},task_status = #{taskStatus},status = #{status}
+    </insert>
+
+    <delete id="deletePackageTask" parameterType="com.laifeng.cpsjobs.model.cps.PackageTask">
+        DELETE FROM t_cps_package_task
+        WHERE pk_cps_package_task_id = #{id}
+    </delete>
+
+    <update id="updateStatus" parameterType="com.laifeng.cpsjobs.model.cps.PackageTask">
+        UPDATE t_cps_package_task
+        SET status = 1
+        WHERE pk_cps_package_task_id = #{id}
+    </update>
+
+    <update id="updateLock" parameterType="com.laifeng.cpsjobs.model.cps.PackageTask">
+        UPDATE t_cps_package_task
+        SET task_status = #{taskStatus}
+        WHERE pk_cps_package_task_id = #{id}
+    </update>
+</mapper>

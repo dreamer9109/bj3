@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laifeng.cpsjobs.dao.stat.cps.PackageInfoMapper">
+    <resultMap type="com.laifeng.cpsjobs.model.cps.PackageInfo" id="packageInfoResultMap">
+        <result property="id" column="pk_cps_package_info_id" />
+        <result property="packageName" column="package_name" />
+        <result property="cpsPositionId" column="cps_position_id" />
+        <result property="cpsPositionName" column="name" />
+        <result property="cpsInfo" column="cps_info" />
+        <result property="friendChannelName" column="friend_channel_name" />
+        <result property="isFirst" column="is_first" />
+        <result property="isFirstImage" column="is_first_image" />
+        <result property="isFirstPosition" column="is_first_position" />
+        <result property="createTime" column="create_time" />
+    </resultMap>
+
+    <select id="listPackageInfo" resultMap="packageInfoResultMap">
+        SELECT * FROM t_cps_package_info
+        LEFT JOIN t_cps_position cpsPosition on t_cps_package_info.cps_position_id = cpsPosition.pk_cps_position
+        WHERE 1 = 1
+        <if test="packageName != null and packageName != ''">
+            AND package_name LIKE CONCAT('%',#{packageName},'%')
+        </if>
+
+        <if test="channelName != null and channelName != ''">
+            AND name LIKE CONCAT('%',#{channelName},'%')
+        </if>
+
+        <if test="friendChannelName != null and friendChannelName != ''">
+            AND friend_channel_name LIKE CONCAT('%',#{friendChannelName},'%')
+        </if>
+    </select>
+
+    <select id="getPackageInfo" resultMap="packageInfoResultMap">
+        SELECT * FROM t_cps_package_info WHERE pk_cps_package_info_id = #{id}
+    </select>
+
+    <select id="getPackageInfoByIn" resultMap="packageInfoResultMap" parameterType="java.util.List">
+        SELECT * FROM t_cps_package_info WHERE pk_cps_package_info_id  in <foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item}</foreach>
+    </select>
+
+    <insert id="insertPackageInfo" parameterType="com.laifeng.cpsjobs.model.cps.PackageInfo">
+        INSERT INTO t_cps_package_info
+        SET package_name = #{packageName},cps_position_id = #{cpsPositionId},cps_info = #{cpsInfo},
+        friend_channel_name = #{friendChannelName},is_first = #{isFirst},is_first_image = #{isFirstImage},
+        is_first_position = #{isFirstPosition},create_time = #{createTime}
+    </insert>
+
+    <update id="updatePackageInfo" parameterType="com.laifeng.cpsjobs.model.cps.PackageInfo">
+        UPDATE t_cps_package_info
+        SET package_name = #{packageName},cps_position_id = #{cpsPositionId},cps_info = #{cpsInfo},
+        friend_channel_name = #{friendChannelName},is_first = #{isFirst},is_first_image = #{isFirstImage},
+        is_first_position = #{isFirstPosition},create_time = #{createTime}
+        WHERE pk_cps_package_info_id = #{id}
+    </update>
+
+    <delete id="deletePackageInfo" parameterType="com.laifeng.cpsjobs.model.cps.PackageInfo">
+        DELETE FROM t_cps_package_info
+        WHERE pk_cps_package_info_id = #{id}
+    </delete>
+</mapper>

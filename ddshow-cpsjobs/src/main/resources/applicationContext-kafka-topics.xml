@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+
+    <bean id="baseConfigure" abstract="true" class="com.laifeng.kafka.client.youku.conf.BaseConfigure">
+        <property name="token" value="${kafka.sdk.token}"/>
+        <property name="zkConnTimeOut" value="60000"/>
+    </bean>
+
+    <bean id="cpsJobsTopic" class="java.lang.String">
+        <constructor-arg value="${kafka.topic.cpsJobs}"/>
+    </bean>
+
+</beans>

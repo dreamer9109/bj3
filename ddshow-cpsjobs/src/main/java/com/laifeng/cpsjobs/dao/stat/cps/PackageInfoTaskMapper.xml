@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laifeng.cpsjobs.dao.stat.cps.PackageInfoTaskMapper">
+    <resultMap type="com.laifeng.cpsjobs.model.cps.PackageInfoTask" id="packageInfoTaskResultMap">
+        <result property="id" column="pk_cps_package_info_task_id"/>
+        <result property="packageName" column="package_name"/>
+        <result property="cpsPositionId" column="cps_position_id"/>
+        <result property="cpsPositionName" column="positionName"/>
+        <result property="cpsInfo" column="cps_info"/>
+        <result property="friendChannelName" column="friend_channel_name"/>
+        <result property="isFirst" column="is_first"/>
+        <result property="isFirstImage" column="is_first_image"/>
+        <result property="isFirstPosition" column="is_first_position"/>
+        <result property="createTime" column="create_time"/>
+        <result property="packageId" column="fk_cps_package_base_id"/>
+        <result property="taskId" column="fk_cps_package_task_id"/>
+        <result property="downloadUrl" column="download_url"/>
+        <result property="downloadActive" column="download_active"/>
+
+        <result property="jobCode" column="job_code"/>
+        <result property="basePackageName" column="name"/>
+        <result property="basePackageVersion" column="version"/>
+        <result property="path" column="path"/>
+        <result property="savePath" column="save_path"/>
+
+        <result property="updateVersion" column="update_version" />
+        <result property="size" column="size" />
+        <result property="md5" column="md5" />
+    </resultMap>
+
+    <insert id="insertPackageInfoTask" parameterType="com.laifeng.cpsjobs.model.cps.PackageInfoTask">
+        INSERT INTO t_cps_package_info_task
+		SET package_name = #{packageName},cps_position_id = #{cpsPositionId},cps_info = #{cpsInfo},
+		friend_channel_name = #{friendChannelName},is_first = #{isFirst},is_first_image = #{isFirstImage},
+		is_first_position = #{isFirstPosition},create_time = #{createTime},fk_cps_package_base_id= #{packageId},fk_cps_package_task_id = #{taskId}
+    </insert>
+
+    <update id="updateSavePath" parameterType="com.laifeng.cpsjobs.model.cps.PackageInfoTask">
+        UPDATE t_cps_package_info_task
+        SET save_path = #{savePath}
+        WHERE pk_cps_package_info_task_id = #{id}
+    </update>
+
+    <update id="updateDownloadActive" parameterType="com.laifeng.cpsjobs.model.cps.PackageInfoTask">
+        UPDATE t_cps_package_info_task
+        SET download_active = #{downloadActive}
+        WHERE pk_cps_package_info_task_id = #{id}
+    </update>
+
+    <delete id="deletePackageInfoTask" parameterType="com.laifeng.cpsjobs.model.cps.PackageInfoTask">
+        DELETE FROM t_cps_package_info_task
+        WHERE pk_cps_package_info_task_id = #{id}
+    </delete>
+
+    <select id="listPackageInfoTask" resultMap="packageInfoTaskResultMap">
+        SELECT it.pk_cps_package_info_task_id,package_name,cps_position_id,cps_info,friend_channel_name,is_first,
+		is_first_image,is_first_position,it.create_time,save_path,fk_cps_package_base_id,fk_cps_package_task_id,cpsPosition.name positionName,t.job_code,
+		b.name,b.version,b.path,b.size,b.md5,b.update_version
+		FROM t_cps_package_info_task it
+		LEFT JOIN t_cps_position cpsPosition on it.cps_position_id = cpsPosition.pk_cps_position
+		LEFT JOIN t_cps_package_task t on it.fk_cps_package_task_id = t.pk_cps_package_task_id
+		LEFT JOIN t_cps_package_base b on it.fk_cps_package_base_id = b.pk_cps_package_base_id
+		WHERE t.pk_cps_package_task_id = #{id}
+    </select>
+
+    <select id="getPackageInfoTaskById" resultMap="packageInfoTaskResultMap"
+            parameterType="com.laifeng.cpsjobs.model.cps.PackageInfoTask">
+        SELECT *
+        FROM t_cps_package_info_task
+        WHERE pk_cps_package_info_task_id = #{id}
+    </select>
+    <!--<select id="getPackageInfoTaskByIn" resultMap="packageInfoResultMap" parameterType="java.util.List">-->
+    <!--SELECT * FROM t_cps_package_info WHERE id  in <foreach item="item" index="index" collection="list" open="(" separator="," close=")">#{item}</foreach>-->
+    <!--</select>-->
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:jms="http://www.springframework.org/schema/jms"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+						  http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+						  http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+						  http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms-2.5.xsd">
+
+
+
+    <bean id="packageBaseService" class="com.laifeng.cpsjobs.service.impl.cps.PackageBaseServiceImpl"></bean>
+    <bean id="packageInfoService" class="com.laifeng.cpsjobs.service.impl.cps.PackageInfoServiceImpl"></bean>
+    <bean id="packageInfoTaskService" class="com.laifeng.cpsjobs.service.impl.cps.PackageInfoTaskServiceImpl"></bean>
+    <bean id="packageService" class="com.laifeng.cpsjobs.service.impl.cps.PackageServiceImpl"></bean>
+    <bean id="packageTaskService" class="com.laifeng.cpsjobs.service.impl.cps.PackageTaskServiceImpl"></bean>
+	<bean id="packageUploadDownloadUrlService" class="com.laifeng.cpsjobs.service.impl.cps.PackageUploadDownloadUrlServiceImpl"></bean>
+
+    <bean id="packageHelper" class="com.laifeng.cpsjobs.handler.cps.PackageHandler"></bean>
+
+</beans>

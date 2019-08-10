@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laifeng.cpsjobs.dao.stat.cps.PackageBaseMapper">
+    <resultMap type="com.laifeng.cpsjobs.model.cps.PackageBase" id="packageBaseResultMap">
+        <result property="id" column="pk_cps_package_base_id" />
+        <result property="name" column="name" />
+        <result property="version" column="version" />
+        <result property="createTime" column="create_time" />
+        <result property="status" column="status" />
+    </resultMap>
+
+    <select id="listPackageBase" resultMap="packageBaseResultMap">
+        SELECT *
+        FROM t_cps_package_base
+        WHERE status = 0
+        LIMIT #{offsite},#{length}
+    </select>
+
+    <select id="countPackageBase" resultType="Integer">
+        SELECT count(*)
+        FROM t_cps_package_base
+        WHERE status = 0
+    </select>
+
+    <update id="updateStatus" parameterType="com.laifeng.cpsjobs.model.cps.PackageBase">
+        UPDATE t_cps_package_base
+        SET status = 1
+        WHERE pk_cps_package_base_id = #{id}
+    </update>
+
+    <insert id="insertPackageBase" parameterType="com.laifeng.cpsjobs.model.cps.PackageBase">
+        INSERT t_cps_package_base
+        SET name = #{name},version = #{version},path = #{path}
+    </insert>
+</mapper>
