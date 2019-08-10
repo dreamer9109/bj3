@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by zhengcunwen on 2015/6/26.
+ *增加功能dev
  */
 public class TestHandler implements LFMessageHandler {
 
